@@ -1,0 +1,7 @@
+Name: Alternator Weapon Mod
+Version: 0.0.0
+Author: Tony R.
+
+DLL: Mod.dll
+
+Depends: Base 0.2
