@@ -12,43 +12,43 @@ using SlashAPI;
 namespace Weapons
 {
     
-    public class Alternator : GunBehaviour
+    public class Winan : GunBehaviour
     {
   
      
         public static void Add()
         {
             //
-            Gun gun = ETGMod.Databases.Items.NewGun("Alternator", "notlim");
+            Gun gun = ETGMod.Databases.Items.NewGun("Winan", "aaaaaa");
             // 
-            Game.Items.Rename("outdated_gun_mods:alternator", "nt:alternator");
+            Game.Items.Rename("outdated_gun_mods:winan", "nt:winan");
             gun.gameObject.AddComponent<Alternator>();
             //
-            gun.SetShortDescription("True current");
-            gun.SetLongDescription("A fitting weapon for a subtle hero with a hidden story.");
+            gun.SetShortDescription("Steamy!");
+            gun.SetLongDescription("A civil war era steam weapon originally inteded for use on rail. Now, it has been redesigned and compacted for personal use, firing high energy, high speed, steam based projectiles.");
             //
-            gun.SetupSprite(null, "notlim_idle_001", 8);
+            gun.SetupSprite(null, "aaaaaa_idle_001", 8);
             // 
             gun.SetAnimationFPS(gun.shootAnimation, 12);
             // 
-            gun.AddProjectileModuleFrom("blasphemy", true, false);
+            gun.AddProjectileModuleFrom("38_special", true, false);
             // 
-            gun.DefaultModule.ammoCost = 0;
+            gun.DefaultModule.ammoCost = 1;
             gun.DefaultModule.shootStyle = ProjectileModule.ShootStyle.SemiAutomatic;
             gun.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Random;
-            gun.reloadTime = 0f;
-            gun.DefaultModule.burstShotCount = 3;
-            gun.DefaultModule.cooldownTime = 0.5f;
-            gun.DefaultModule.burstCooldownTime = 1.2f;
-            gun.DefaultModule.numberOfShotsInClip = 3;
+            gun.reloadTime = 1f;
+            //gun.DefaultModule.burstShotCount = 3;
+            gun.DefaultModule.cooldownTime = 0.25f;
+            //gun.DefaultModule.burstCooldownTime = 1.2f;
+            gun.DefaultModule.numberOfShotsInClip = 8;
             gun.DefaultModule.angleVariance = 0f;
-            gun.SetBaseMaxAmmo(3);
-            gun.barrelOffset.transform.localPosition = new Vector3(-0.5f, 0f, 0f);
-            gun.muzzleFlashEffects.type = VFXPoolType.None;
-            gun.DefaultModule.ammoType = GameUIAmmoType.AmmoType.CUSTOM;
-            gun.DefaultModule.customAmmoType = "evo3";
+            gun.SetBaseMaxAmmo(350);
+            gun.barrelOffset.transform.localPosition = new Vector3(1f, 0.8f, 0f);
+            gun.DefaultModule.ammoType = GameUIAmmoType.AmmoType.BEAM;
+            //gun.DefaultModule.customAmmoType = "burning hand";
+            //gun.muzzleFlashEffects.type = VFXPoolType.None;
             //
-            gun.quality = PickupObject.ItemQuality.C;
+            gun.quality = PickupObject.ItemQuality.B;
             //
             Projectile projectile = UnityEngine.Object.Instantiate<Projectile>(gun.DefaultModule.projectiles[0]);
 			projectile.gameObject.SetActive(false);
@@ -56,15 +56,15 @@ namespace Weapons
 			UnityEngine.Object.DontDestroyOnLoad(projectile);
 			gun.DefaultModule.projectiles[0] = projectile;
             //
-            projectile.baseData.damage *= 1.5f;
+            projectile.baseData.damage *= 1.2f;
             projectile.baseData.speed *= 1f;
 			projectile.transform.parent = gun.barrelOffset;
-            projectile.pierceMinorBreakables = true;
+            projectile.pierceMinorBreakables = false;
             //
-            //projectile.SetProjectileSpriteRight("notlim_projectile_001", 13, 13, null, null);
+            projectile.SetProjectileSpriteRight("aaaaaa_projectile_001", 7, 7, null, null);
 
 
-            /***********************JUST FOR SLASHING WEAPONS***********************/
+            /***********************JUST FOR SLASHING WEAPONS***********************
             //sprites and sprite handling
             VFXPool SlashVFX = VFXLibrary.CreateMuzzleflash("notlim_slash", new List<string> { "notlim_slash_001", "notlim_slash_002", "notlim_slash_003", }, 10, new List<IntVector2> { new IntVector2(15, 35), new IntVector2(15, 35), new IntVector2(15, 35), }, new List<tk2dBaseSprite.Anchor> {
             tk2dBaseSprite.Anchor.MiddleLeft, tk2dBaseSprite.Anchor.MiddleLeft, tk2dBaseSprite.Anchor.MiddleLeft}, new List<Vector2> { Vector2.zero, Vector2.zero, Vector2.zero }, false, false, false, false, 0, VFXAlignment.Fixed, true, new List<float> { 0, 0, 0 }, new List<Color> { VFXLibrary.emptyColor, VFXLibrary.emptyColor, VFXLibrary.emptyColor });
@@ -88,7 +88,7 @@ namespace Weapons
         {
             //
             gun.PreventNormalFireAudio = true;
-            AkSoundEngine.PostEvent("Play_WPN_blasphemy_shot_01", gameObject);
+            AkSoundEngine.PostEvent("Play_WPN_burninghand_shot_01", gameObject);
         }
         private bool HasReloaded;
         //
@@ -115,7 +115,7 @@ namespace Weapons
 				HasReloaded = false;
 				AkSoundEngine.PostEvent("Stop_WPN_All", base.gameObject);
 				base.OnReloadPressed(player, gun, bSOMETHING);
-				AkSoundEngine.PostEvent("Play_WPN_accent_ice_01", base.gameObject);
+				AkSoundEngine.PostEvent("Play_WPN_active_reload_01", base.gameObject);
 			}
 		}
 
